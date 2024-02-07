@@ -1,3 +1,8 @@
+using Microsoft.EntityFrameworkCore;
+using ControleDeContatos.Data;
+using ControleDeContatos.Repository.Interfaces;
+using ControleDeContatos.Repository;
+
 namespace ControleDeContatos
 {
     public class Program
@@ -8,6 +13,20 @@ namespace ControleDeContatos
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+
+            // Configure the Database acess
+            builder.Services.AddEntityFrameworkNpgsql()
+                .AddDbContext<BancoContext>(
+                    options => options.UseNpgsql(builder.Configuration.GetConnectionString("Default"))
+                );
+
+            builder.Services.AddScoped<IContactRepository, ContactRepository>();
+
+
+
+
+
 
             var app = builder.Build();
 

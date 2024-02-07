@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<ContactModel>
+@{
     ViewData["Title"] = "Lista de contatos";
 }
 
@@ -8,6 +9,28 @@
         <a class="btn btn-primary" role="button" asp-controller="Contact" asp-action="Create">Adicionar novo contato</a>
     </div>
     <br>
+
+
+    @if (TempData["SucessMessage"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+             @TempData["SucessMessage"]
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+            @TempData["ErrorMessage"]
+        </div>  
+    }
+    <br />
+   
+
+    
+
 
     <h1 class display-4>Lista de Contatos</h1>
 
@@ -22,42 +45,27 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto@gmail.com</td>
-          <td>12341234</td>
-          <td>
-              <div class="btn-group" role="group">
-                  <a role="button" class="btn btn-primary" asp-controller="Contact" asp-action="Update">Editar</a>
-                  <a role="button" class="btn btn-danger" asp-controller="Contact" asp-action="DeleteConfirmation">Apagar</a>
-             </div>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton@gmail.com</td>
-          <td>12341234</td>
-          <td>
-              <div class="btn-group" role="group">
-                  <a role="button" class="btn btn-primary" asp-controller="Contact" asp-action="Update">Editar</a>
-                  <a role="button" class="btn btn-danger" asp-controller="Contact" asp-action="DeleteConfirmation">Apagar</a>
-             </div>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Jacob</td>
-          <td>Larry@gmail.com</td>
-          <td>12341234</td>
-          <td>
-              <div class="btn-group" role="group">
-                  <a role="button" class="btn btn-primary" asp-controller="Contact" asp-action="Update">Editar</a>
-                  <a role="button" class="btn btn-danger" asp-controller="Contact" asp-action="DeleteConfirmation">Apagar</a>
-             </div>
-          </td>
-        </tr>
+          @if(Model != null & Model.Any())
+          {
+                foreach(ContactModel contact in Model)
+                {
+                  <tr>
+                      <th scope="row">@contact.Id</th>
+                              <td>@contact.Name</td>
+                              <td>@contact.Email</td>
+                              <td>@contact.Phone</td>
+                      <td>
+                          <div class="btn-group" role="group">
+                              <a role="button" class="btn btn-primary" asp-route-id="@contact.Id" asp-controller="Contact" asp-action="Update">Editar</a>
+                              <a role="button" class="btn btn-danger" asp-route-id="@contact.Id" asp-controller="Contact" asp-action="DeleteConfirmation">Apagar</a>
+                         </div>
+                      </td>
+                </tr>
+                    
+                }
+            }
+        
+       
       </tbody>
     </table>
 

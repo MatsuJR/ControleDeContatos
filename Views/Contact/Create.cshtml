@@ -17,22 +17,22 @@
         <input type="text" asp-for="Name" class="form-control" placeholder="Digite o nome do contato">
         @Html.ValidationMessageFor(x => x.Name)
       </div>
-      
+
 
       <div class="form-group mb-2">
         <label for="email">E-mail</label>
-        <input type="email" asp-for="Email"class="form-control" placeholder="Digite o email do contato">
+        <input type="text" asp-for="Email"class="form-control" placeholder="Digite o email do contato">
         @Html.ValidationMessageFor(x => x.Email)
       </div>
-      
+
 
       <div class="form-group mb-2">
         <label for="phone">Numero de celular</label>
         <input type="text" asp-for="Phone" class="form-control" placeholder="Digite o numero de celular do contato">
         @Html.ValidationMessageFor(x => x.Phone)  
     </div>
-      
- 
+
+
       <button type="submit" class="btn btn-primary">Adicionar</button>
       <a class="btn btn-secondary" asp-controller="Contact" asp-action="Index" role="button">Voltar</a>
 </form>
